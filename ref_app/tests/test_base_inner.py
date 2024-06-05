@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.utils import timezone
 # from unittest import skip
 from datetime import timedelta
+import uuid
 
 #from noteqq import test_data
 from ref_app import utils
@@ -21,3 +22,7 @@ class UserTest(TestCase):
         err, user1 = utils.create_user(data_app.USER1)
         self.assertFalse(err)
         self.assertEqual(user1.username, data_app.USER1[0])
+        self.assertEqual(user1.profile.balance, 0)
+        self.assertFalse(user1.profile.is_referral)
+        self.assertFalse(user1.profile.is_referrer)
+        self.assertTrue(isinstance(user1.profile.ref_code, uuid.UUID))
