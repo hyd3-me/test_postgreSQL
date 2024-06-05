@@ -31,3 +31,11 @@ def create_user(data):
         referral.save()
     profile.save()
     return 0, user
+
+@try_me
+def get_referrer_by_ref_code(_ref_code):
+    profile = Profile.objects.get(ref_code=_ref_code)
+    if not profile:
+        return 1, 'not user with same ref_code'
+    else:
+        return 0, profile.user

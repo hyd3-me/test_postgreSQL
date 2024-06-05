@@ -26,3 +26,13 @@ class UserTest(TestCase):
         self.assertFalse(user1.profile.is_referral)
         self.assertFalse(user1.profile.is_referrer)
         self.assertTrue(isinstance(user1.profile.ref_code, uuid.UUID))
+    
+    def test_can_get_referrer_by_ref_code(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, resp = utils.get_referrer_by_ref_code(user1.profile.ref_code)
+        self.assertFalse(err)
+        self.assertEqual(user1, resp)
+    
+    def test_create_referral_obj(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        pass
