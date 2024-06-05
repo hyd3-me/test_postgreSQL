@@ -35,4 +35,9 @@ class UserTest(TestCase):
     
     def test_create_referral_obj(self):
         err, user1 = utils.create_user(data_app.USER1)
-        pass
+        err, user2 = utils.create_user(data_app.USER2)
+        err, resp = utils.create_referral_obj((user1, user2))
+        self.assertFalse(err)
+        self.assertEqual(f'refs {user1.username} >> {user2.username}', str(resp))
+        self.assertEqual(resp.num_purchases, 0)
+        self.assertEqual(resp.total_amount, 0)

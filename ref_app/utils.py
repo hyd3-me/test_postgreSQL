@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 # from uuid import uuid4
 from decimal import Decimal
 
-from .models import Profile
+from .models import Profile, Referral
 # Referral
 
 
@@ -39,3 +39,12 @@ def get_referrer_by_ref_code(_ref_code):
         return 1, 'not user with same ref_code'
     else:
         return 0, profile.user
+
+@try_me
+def create_referral_obj(args):
+    # args = #1referrer #2 referral
+    referral_obj = Referral(referrer=args[0], referral=args[1])
+    if not referral_obj:
+        return 1, 'dont create referral obj'
+    else:
+        return 0, referral_obj

@@ -18,3 +18,6 @@ class Referral(models.Model):
     date_joined     = models.DateTimeField(auto_now_add=True)
     num_purchases   = models.PositiveIntegerField(default=0)
     total_amount    = models.DecimalField(max_digits=16, decimal_places=2, default=0.0)
+
+    def __str__(self):
+        return f'refs {self.referrer} >> {self.referral}'
