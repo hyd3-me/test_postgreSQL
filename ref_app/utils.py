@@ -7,12 +7,16 @@ from .models import Profile
 
 
 def try_me(fn):
-    try:
-        return fn
-    except Exception as e:
-        #logger.error(e)
-        return 1, e
+    # return func resp or err
+    def do_func(args):
+        try:
+            return fn(args)
+        except Exception as e:
+            #logger.error(e)
+            return 1, e
+    return do_func
 
+@try_me
 def create_user(data):
     # username, password, uuid_code/ref_code = data
     user = User.objects.create_user(username=data[0], password=data[1])

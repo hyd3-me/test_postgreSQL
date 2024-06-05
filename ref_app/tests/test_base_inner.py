@@ -11,6 +11,12 @@ from ref_app import data_app
 
 class UserTest(TestCase):
 
+    def test_try_me_func(self):
+        test_wrong_data_arr = ['username', 'userpwd']
+        err, resp = utils.create_user(test_wrong_data_arr)
+        self.assertTrue(err)
+        self.assertTrue(isinstance(resp, Exception))
+
     def test_create_user(self):
         err, user1 = utils.create_user(data_app.USER1)
         self.assertFalse(err)
