@@ -13,6 +13,11 @@ class UserTest(BaseUser):
         resp = self.client.get(reverse(data_app.LOGIN_PATH))
         self.assertTemplateUsed(resp, 'login.html')
     
+    def test_has_link_to_register_new_user(self):
+        resp = self.client.get(reverse(data_app.LOGIN_PATH))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, '<a href="/register">+new user</a>', html=True)
+    
     def est_use_template_to_index(self):
         resp = self.client.get(reverse(data_app.HOME_PATH))
         self.assertTemplateUsed(resp, 'index.html')
