@@ -47,3 +47,4 @@ $ psql
 - test_create_referral_obj
 - test_get_user_by_id
 - test_can_create_2_referral_obj
+- test_cant_craete_referral_obj_to_same_referral

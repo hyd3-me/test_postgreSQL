@@ -61,6 +61,15 @@ class UserTest(TestCase):
         self.assertIn(f'refs {user1.username} >> {user2.username}', str(all_referral_obj))
         self.assertIn(f'refs {user3.username} >> {user4.username}', str(all_referral_obj))
     
+    def test_cant_craete_referral_obj_to_same_referral(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, user2 = utils.create_user(data_app.USER2)
+        err, resp = utils.create_referral_obj((user1, user2))
+        err, user3 = utils.create_user(data_app.USER3)
+        err, resp = utils.create_referral_obj((user3, user2))
+        self.assertTrue(err)
+        print(resp)
+    
     def test_get_user_by_id(self):
         s, user1 = utils.create_user(data_app.USER1)
         err, user_from_bd = utils.get_user_by_id(user1.id)
