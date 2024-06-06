@@ -82,3 +82,10 @@ class UserTest(TestCase):
         err, resp = utils.create_referral_obj((user1, user2))
         err, user_from_db = utils.get_user_by_id(user1.id)
         self.assertTrue(user_from_db.profile.is_referrer)
+    
+    def test_user_is_referral(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, user2 = utils.create_user(data_app.USER2)
+        err, resp = utils.create_referral_obj((user1, user2))
+        err, user_from_db = utils.get_user_by_id(user2.id)
+        self.assertTrue(user_from_db.profile.is_referral)
