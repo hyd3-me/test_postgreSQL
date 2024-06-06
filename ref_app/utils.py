@@ -87,3 +87,18 @@ def get_money(_user_obj):
     _user_obj.profile.balance += data_app.BONUS9999
     _user_obj.profile.save()
     return 0, _user_obj
+
+@try_me
+def buy_item(_user_obj, req):
+    #valid balance pass
+    if req > _user_obj.profile.balance:
+        return 1, 'not enough funds'
+    _user_obj.profile.balance -= req
+    _user_obj.profile.save()
+    #add thing to store pass
+    #if referral then give bonus
+    # s, resp1 = is_refl(user_obj)
+    # if s:
+    #     process_buy(resp1, req)
+    #     give_bonus(resp1, req)
+    return 0, _user_obj

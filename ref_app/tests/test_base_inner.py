@@ -129,3 +129,10 @@ class UserTest(TestCase):
         err, resp = utils.get_money(user1)
         self.assertFalse(err)
         self.assertEqual(data_app.BONUS9999, user1.profile.balance)
+
+    def test_can_buy_item(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, user1 = utils.get_money(user1)
+        err, resp = utils.buy_item(user1, data_app.REQ_BUY1)
+        self.assertFalse(err)
+        self.assertEqual(user1.profile.balance, data_app.BONUS9999 - data_app.REQ_BUY1)
