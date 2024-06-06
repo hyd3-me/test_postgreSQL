@@ -107,3 +107,17 @@ def buy_item(_user_obj, req):
         referral_buy(_user_obj.referral, req)
     #     give_bonus(resp1, req)
     return 0, _user_obj
+
+@try_me
+def user_is_referral(_user_obj):
+    if _user_obj.profile.is_referral:
+        return 0, _user_obj
+    else:
+        return 1, 'user is not referral'
+
+@try_me
+def user_is_referrer(_user_obj):
+    if _user_obj.profile.is_referrer:
+        return 0, _user_obj
+    else:
+        return 1, 'user is not referrer'
