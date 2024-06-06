@@ -8,9 +8,9 @@ from .models import Profile, Referral
 
 def try_me(fn):
     # return func resp or err
-    def do_func(args):
+    def do_func(*args):
         try:
-            return fn(args)
+            return fn(*args)
         except Exception as e:
             #logger.error(e)
             return 1, e
@@ -47,6 +47,7 @@ def create_referral_obj(args):
     if not referral_obj:
         return 1, 'dont create referral obj'
     else:
+        referral_obj.save()
         return 0, referral_obj
 
 @try_me
@@ -56,3 +57,7 @@ def get_user_by_id(user_id):
         return 1, f'user not found'
     else:
         return 0, user
+
+@try_me
+def get_all_referral_from_db():
+    return Referral.objects.all()

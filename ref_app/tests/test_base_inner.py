@@ -41,6 +41,25 @@ class UserTest(TestCase):
         self.assertEqual(f'refs {user1.username} >> {user2.username}', str(resp))
         self.assertEqual(resp.num_purchases, 0)
         self.assertEqual(resp.total_amount, 0)
+        all_referral_obj = utils.get_all_referral_from_db()
+        self.assertEqual(all_referral_obj.count(), 1)
+        self.assertIn(f'refs {user1.username} >> {user2.username}', str(all_referral_obj))
+    
+    def test_can_create_2_referral_obj(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, user2 = utils.create_user(data_app.USER2)
+        err, resp = utils.create_referral_obj((user1, user2))
+        err, user3 = utils.create_user(data_app.USER3)
+        err, user4 = utils.create_user(data_app.USER4)
+        err, resp = utils.create_referral_obj((user3, user4))
+        self.assertFalse(err)
+        self.assertEqual(f'refs {user3.username} >> {user4.username}', str(resp))
+        self.assertEqual(resp.num_purchases, 0)
+        self.assertEqual(resp.total_amount, 0)
+        all_referral_obj = utils.get_all_referral_from_db()
+        self.assertEqual(all_referral_obj.count(), 2)
+        self.assertIn(f'refs {user1.username} >> {user2.username}', str(all_referral_obj))
+        self.assertIn(f'refs {user3.username} >> {user4.username}', str(all_referral_obj))
     
     def test_get_user_by_id(self):
         s, user1 = utils.create_user(data_app.USER1)
