@@ -107,3 +107,18 @@ class UserTest(TestCase):
         err, user3 = utils.create_user((*data_app.USER3, ref_code))
         all_referral_obj = utils.get_all_referral_from_db()
         self.assertEqual(all_referral_obj.count(), 2)
+    
+    def test_can_get_referrals_by_user(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, refs = utils.get_referrals_by_user(user1)
+        # list of referrals is empty
+        self.assertTrue(err)
+        err, ref_code = utils.get_ref_code_by_user(user1)
+        err, user2 = utils.create_user((*data_app.USER2, ref_code))
+        err, refs = utils.get_referrals_by_user(user1)
+        self.assertFalse(err)
+        self.assertEqual(refs.count(), 1)
+        err, user3 = utils.create_user((*data_app.USER3, ref_code))
+        err, refs = utils.get_referrals_by_user(user1)
+        self.assertFalse(err)
+        self.assertEqual(refs.count(), 2)

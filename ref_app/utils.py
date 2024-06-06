@@ -73,3 +73,11 @@ def get_ref_code_by_user(user_obj):
         return 0, ref_code
     else:
         return 1, 'ref_code not found'
+
+@try_me
+def get_referrals_by_user(_user_obj):
+    refs = _user_obj.referrer.all()
+    if not refs:
+        return 1, f'referrals not found'
+    else:
+        return 0, refs
