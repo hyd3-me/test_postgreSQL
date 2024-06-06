@@ -65,3 +65,4 @@ $ psql
 - use_template_for_login_page
 - test_has_link_to_register_new_user
 - test_can_register_new_user
+- test_use_template_for_index_page

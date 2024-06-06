@@ -24,7 +24,8 @@ class UserTest(BaseUser):
         err, user = utils.get_user_by_id(1)
         self.assertEqual(user.username, data_app.USER1[0])
     
-    def est_use_template_to_index(self):
+    def test_use_template_for_index_page(self):
+        err, user = self.make_user_and_login()
         resp = self.client.get(reverse(data_app.HOME_PATH))
         self.assertTemplateUsed(resp, 'index.html')
     
