@@ -128,3 +128,11 @@ def give_bonus(ref_obj, pay):
     ref_obj.referrer.profile.balance += Decimal.from_float(percent5)
     ref_obj.referrer.profile.save()
     return 0, ref_obj
+
+@try_me
+def get_ref_code(user_obj):
+    ref_code = user_obj.profile.ref_code
+    if not ref_code:
+        return 1, 'not ref_code'
+    else:
+        return 0, ref_code

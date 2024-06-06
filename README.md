@@ -64,3 +64,4 @@ $ psql
 - redirect_unauth_user_to_login_page_from_index
 - use_template_for_login_page
 - test_has_link_to_register_new_user
+- test_can_register_new_user

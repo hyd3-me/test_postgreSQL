@@ -18,6 +18,12 @@ class UserTest(BaseUser):
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, '<a href="/register">+new user</a>', html=True)
     
+    def test_can_register_new_user(self):
+        resp = self.reg_me(data_app.USER1)
+        self.assertRedirects(resp, reverse(data_app.PROFILE_PATH))
+        err, user = utils.get_user_by_id(1)
+        self.assertEqual(user.username, data_app.USER1[0])
+    
     def est_use_template_to_index(self):
         resp = self.client.get(reverse(data_app.HOME_PATH))
         self.assertTemplateUsed(resp, 'index.html')
