@@ -48,3 +48,11 @@ def create_referral_obj(args):
         return 1, 'dont create referral obj'
     else:
         return 0, referral_obj
+
+@try_me
+def get_user_by_id(user_id):
+    user = User.objects.get(id=user_id)
+    if not user:
+        return 1, f'user not found'
+    else:
+        return 0, user

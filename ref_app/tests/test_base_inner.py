@@ -41,3 +41,8 @@ class UserTest(TestCase):
         self.assertEqual(f'refs {user1.username} >> {user2.username}', str(resp))
         self.assertEqual(resp.num_purchases, 0)
         self.assertEqual(resp.total_amount, 0)
+    
+    def test_get_user_by_id(self):
+        s, user1 = utils.create_user(data_app.USER1)
+        err, user_from_bd = utils.get_user_by_id(user1.id)
+        self.assertEqual(user1, user_from_bd)
