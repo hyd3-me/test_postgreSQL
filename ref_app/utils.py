@@ -24,11 +24,11 @@ def create_user(data):
         return 1, f'user not created'
     profile = Profile(user=user)
     if data[2]:
-        referrer = Profile.objects.get(ref_code=data[2])
-        if not refr:
+        err, referrer = get_referrer_by_ref_code(data[2])
+        if err:
             return 1, 'error: not user with this ref_code'
-        referral = Referral(referrer=referrer.user, referral=user)
-        referral.save()
+        err, referral_obj = create_referral_obj((referrer, user))
+        referral_obj.save()
     profile.save()
     return 0, user
 
