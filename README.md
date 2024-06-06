@@ -55,3 +55,4 @@ $ psql
 - test_can_get_referrals_by_user
 - test_get_money_is_work
 - test_can_buy_item
+- test_cant_buy_item
