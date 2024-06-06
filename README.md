@@ -53,3 +53,4 @@ $ psql
 - test_can_get_ref_code_by_user
 - test_can_create_user_with_ref_code
 - test_can_get_referrals_by_user
+- test_get_money_is_work

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from decimal import Decimal
 
 from .models import Profile, Referral
-# Referral
+from ref_app import data_app
 
 
 def try_me(fn):
@@ -81,3 +81,9 @@ def get_referrals_by_user(_user_obj):
         return 1, f'referrals not found'
     else:
         return 0, refs
+
+@try_me
+def get_money(_user_obj):
+    _user_obj.profile.balance += data_app.BONUS9999
+    _user_obj.profile.save()
+    return 0, _user_obj

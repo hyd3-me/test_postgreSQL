@@ -122,3 +122,10 @@ class UserTest(TestCase):
         err, refs = utils.get_referrals_by_user(user1)
         self.assertFalse(err)
         self.assertEqual(refs.count(), 2)
+    
+    def test_get_money_is_work(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        self.assertFalse(err)
+        err, resp = utils.get_money(user1)
+        self.assertFalse(err)
+        self.assertEqual(data_app.BONUS9999, user1.profile.balance)
