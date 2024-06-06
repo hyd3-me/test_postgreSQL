@@ -45,3 +45,4 @@ $ psql
 - create_user
 - test_can_get_referrer_by_ref_code
 - test_create_referral_obj
+- test_get_user_by_id
