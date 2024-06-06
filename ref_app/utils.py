@@ -47,6 +47,8 @@ def create_referral_obj(args):
     if not referral_obj:
         return 1, 'dont create referral obj'
     else:
+        args[0].profile.is_referrer = True
+        args[0].profile.save()
         referral_obj.save()
         return 0, referral_obj
 
