@@ -89,6 +89,12 @@ def get_money(_user_obj):
     return 0, _user_obj
 
 @try_me
+def referral_buy(ref_obj, amount):
+    ref_obj.total_amount += amount
+    ref_obj.num_purchases += 1
+    ref_obj.save()
+
+@try_me
 def buy_item(_user_obj, req):
     #valid balance pass
     if req > _user_obj.profile.balance:
@@ -97,8 +103,7 @@ def buy_item(_user_obj, req):
     _user_obj.profile.save()
     #add thing to store pass
     #if referral then give bonus
-    # s, resp1 = is_refl(user_obj)
-    # if s:
-    #     process_buy(resp1, req)
+    if _user_obj.profile.is_referral:
+        referral_buy(_user_obj.referral, req)
     #     give_bonus(resp1, req)
     return 0, _user_obj

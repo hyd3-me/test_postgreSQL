@@ -29,9 +29,9 @@ class UserTest(TestCase):
     
     def test_can_get_referrer_by_ref_code(self):
         err, user1 = utils.create_user(data_app.USER1)
-        err, resp = utils.get_referrer_by_ref_code(user1.profile.ref_code)
+        err, referrer = utils.get_referrer_by_ref_code(user1.profile.ref_code)
         self.assertFalse(err)
-        self.assertEqual(user1, resp)
+        self.assertEqual(user1, referrer)
     
     def test_create_referral_obj(self):
         err, user1 = utils.create_user(data_app.USER1)
@@ -68,7 +68,6 @@ class UserTest(TestCase):
         err, user3 = utils.create_user(data_app.USER3)
         err, resp = utils.create_referral_obj((user3, user2))
         self.assertTrue(err)
-        # print(resp)
     
     def test_get_user_by_id(self):
         s, user1 = utils.create_user(data_app.USER1)
@@ -142,3 +141,29 @@ class UserTest(TestCase):
         err, resp = utils.buy_item(user1, data_app.REQ_BUY1)
         self.assertTrue(err)
         self.assertEqual(user1.profile.balance, 0)
+    
+    def test_can_track_referral_purchases(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, ref_code = utils.get_ref_code_by_user(user1)
+        err, user2 = utils.create_user((*data_app.USER2, ref_code))
+        err, resp = utils.get_money(user2)
+        err, resp = utils.buy_item(user2, data_app.REQ_BUY1)
+        self.assertEqual(user2.referral.total_amount, data_app.REQ_BUY1)
+        self.assertEqual(user2.referral.num_purchases, 1)
+        err, resp = utils.buy_item(user2, data_app.REQ_BUY2)
+        self.assertEqual(user2.referral.total_amount, data_app.REQ_BUY1 + data_app.REQ_BUY2)
+        self.assertEqual(user2.referral.num_purchases, 2)
+        err, resp = utils.buy_item(user2, data_app.REQ_BUY5)
+        self.assertEqual(user2.referral.total_amount, data_app.REQ_BUY1 + data_app.REQ_BUY2 + data_app.REQ_BUY5)
+        self.assertEqual(user2.referral.num_purchases, 3)
+        err, user3 = utils.create_user((*data_app.USER3, ref_code))
+        err, resp = utils.get_money(user3)
+        err, resp = utils.buy_item(user3, data_app.REQ_BUY1)
+        self.assertEqual(user3.referral.total_amount, data_app.REQ_BUY1)
+        self.assertEqual(user3.referral.num_purchases, 1)
+        err, resp = utils.buy_item(user3, data_app.REQ_BUY2)
+        self.assertEqual(user3.referral.total_amount, data_app.REQ_BUY1 + data_app.REQ_BUY2)
+        self.assertEqual(user3.referral.num_purchases, 2)
+        err, resp = utils.buy_item(user3, data_app.REQ_BUY5)
+        self.assertEqual(user3.referral.total_amount, data_app.REQ_BUY1 + data_app.REQ_BUY2 + data_app.REQ_BUY5)
+        self.assertEqual(user3.referral.num_purchases, 3)

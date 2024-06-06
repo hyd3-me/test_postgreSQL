@@ -56,3 +56,4 @@ $ psql
 - test_get_money_is_work
 - test_can_buy_item
 - test_cant_buy_item
+- test_can_track_referral_purchases
