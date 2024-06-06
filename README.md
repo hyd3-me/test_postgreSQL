@@ -42,6 +42,7 @@ $ psql
 ```
 
 ###  тесты
+#### inner_test
 - create_user
 - test_can_get_referrer_by_ref_code
 - test_create_referral_obj
@@ -58,3 +59,7 @@ $ psql
 - test_cant_buy_item
 - test_can_track_referral_purchases
 - test_can_give_bonus_for_referrer
+
+#### http_test
+- redirect_unauth_user_to_login_page_from_index
+- use_template_for_login_page
