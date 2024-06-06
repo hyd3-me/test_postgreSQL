@@ -105,7 +105,7 @@ def buy_item(_user_obj, req):
     #if referral then give bonus
     if _user_obj.profile.is_referral:
         referral_buy(_user_obj.referral, req)
-    #     give_bonus(resp1, req)
+        err, ref_obj = give_bonus(_user_obj.referral, req)
     return 0, _user_obj
 
 @try_me
@@ -121,3 +121,10 @@ def user_is_referrer(_user_obj):
         return 0, _user_obj
     else:
         return 1, 'user is not referrer'
+
+@try_me
+def give_bonus(ref_obj, pay):
+    percent5 = 0.05 * float(pay)
+    ref_obj.referrer.profile.balance += Decimal.from_float(percent5)
+    ref_obj.referrer.profile.save()
+    return 0, ref_obj

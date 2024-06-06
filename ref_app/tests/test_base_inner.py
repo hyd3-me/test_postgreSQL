@@ -169,3 +169,41 @@ class UserTest(TestCase):
         err, resp = utils.buy_item(user3, data_app.REQ_BUY5)
         self.assertEqual(user3.referral.total_amount, data_app.REQ_BUY1 + data_app.REQ_BUY2 + data_app.REQ_BUY5)
         self.assertEqual(user3.referral.num_purchases, 3)
+    
+    def test_can_give_bonus_for_referrer(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, ref_code = utils.get_ref_code_by_user(user1)
+        err, user2 = utils.create_user((*data_app.USER2, ref_code))
+        err, resp = utils.get_money(user2)
+        err, resp = utils.buy_item(user2, data_app.REQ_BUY1)
+        # percent1 for 100
+        percent1 = 0.05 * float(data_app.REQ_BUY1)
+        err, user_from_db = utils.get_user_by_id(user1.id)
+        self.assertEqual(user_from_db.profile.balance, 0 + percent1)
+
+        err, resp = utils.buy_item(user2, data_app.REQ_BUY2)
+        # percent2 for 200
+        percent2 = 0.05 * float(data_app.REQ_BUY2)
+        err, user_from_db = utils.get_user_by_id(user1.id)
+        self.assertEqual(user_from_db.profile.balance, 0 + percent1 + percent2)
+
+        err, resp = utils.buy_item(user2, data_app.REQ_BUY5)
+        # percent5 for 500
+        percent5 = 0.05 * float(data_app.REQ_BUY5)
+        err, user_from_db = utils.get_user_by_id(user1.id)
+        self.assertEqual(user_from_db.profile.balance, 0 + percent1 + percent2 + percent5)
+
+        all_percent_from_user2 = percent1 + percent2 + percent5
+        err, user3 = utils.create_user((*data_app.USER3, ref_code))
+        err, resp = utils.get_money(user3)
+        err, resp = utils.buy_item(user3, data_app.REQ_BUY1)
+        err, user_from_db = utils.get_user_by_id(user1.id)
+        self.assertEqual(user_from_db.profile.balance, 0 + all_percent_from_user2 + percent1)
+        
+        err, resp = utils.buy_item(user3, data_app.REQ_BUY2)
+        err, user_from_db = utils.get_user_by_id(user1.id)
+        self.assertEqual(user_from_db.profile.balance, 0 + all_percent_from_user2 + percent1 + percent2)
+
+        err, resp = utils.buy_item(user3, data_app.REQ_BUY5)
+        err, user_from_db = utils.get_user_by_id(user1.id)
+        self.assertEqual(user_from_db.profile.balance, 0 + all_percent_from_user2 + percent1 + percent2 + percent5)

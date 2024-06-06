@@ -57,3 +57,4 @@ $ psql
 - test_can_buy_item
 - test_cant_buy_item
 - test_can_track_referral_purchases
+- test_can_give_bonus_for_referrer
