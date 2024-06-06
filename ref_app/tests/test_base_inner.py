@@ -68,7 +68,7 @@ class UserTest(TestCase):
         err, user3 = utils.create_user(data_app.USER3)
         err, resp = utils.create_referral_obj((user3, user2))
         self.assertTrue(err)
-        print(resp)
+        # print(resp)
     
     def test_get_user_by_id(self):
         s, user1 = utils.create_user(data_app.USER1)
@@ -89,3 +89,9 @@ class UserTest(TestCase):
         err, resp = utils.create_referral_obj((user1, user2))
         err, user_from_db = utils.get_user_by_id(user2.id)
         self.assertTrue(user_from_db.profile.is_referral)
+    
+    def test_can_get_ref_code_by_user(self):
+        err, user1 = utils.create_user(data_app.USER1)
+        err, resp = utils.get_ref_code_by_user(user1)
+        self.assertFalse(err)
+        self.assertEqual(user1.profile.ref_code, resp)

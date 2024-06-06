@@ -65,3 +65,11 @@ def get_user_by_id(user_id):
 @try_me
 def get_all_referral_from_db():
     return Referral.objects.all()
+
+@try_me
+def get_ref_code_by_user(user_obj):
+    ref_code = user_obj.profile.ref_code
+    if ref_code:
+        return 0, ref_code
+    else:
+        return 1, 'ref_code not found'

@@ -50,3 +50,4 @@ $ psql
 - test_cant_craete_referral_obj_to_same_referral
 - test_user_is_referrer
 - test_user_is_referral
+- test_can_get_ref_code_by_user
