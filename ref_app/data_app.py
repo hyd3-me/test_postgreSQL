@@ -1,3 +1,10 @@
+HOME_PATH               = 'index'
+LOGIN_PATH              = 'login'
+LOGOUT_PATH             = 'logout'
+REG_PATH                = 'register'
+PROFILE_PATH            = 'profile'
+
+
 USERNAME1 = 'testuser1'
 PASSWORD1 = 'v3ry5strongPWD1'
 REF_CODE1 = ''

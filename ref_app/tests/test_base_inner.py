@@ -5,9 +5,7 @@ from django.utils import timezone
 from datetime import timedelta
 import uuid
 
-#from noteqq import test_data
-from ref_app import utils
-from ref_app import data_app
+from ref_app import utils, data_app
 
 
 class UserTest(TestCase):
