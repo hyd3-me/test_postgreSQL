@@ -36,3 +36,6 @@ class UserTest(BaseUser):
         resp = self.reg_me(data_app.USER1)
         self.assertRedirects(resp, reverse(data_app.PROFILE_PATH))
     
+    def test_use_template_for_profile_page(self):
+        resp = self.client.get(reverse(data_app.PROFILE_PATH))
+        self.assertTemplateUsed(resp, 'profile.html')
