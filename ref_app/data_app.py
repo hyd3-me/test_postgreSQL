@@ -29,3 +29,8 @@ BONUS9999 = 9999
 REQ_BUY1 = 100
 REQ_BUY2 = 200
 REQ_BUY5 = 500
+
+GOOD1 = {'id': 1, 'name': 'name1', 'price': 100}
+GOOD2 = {'id': 2, 'name': 'name2', 'price': 200}
+GOOD3 = {'id': 3, 'name': 'name3', 'price': 500}
+PRODUCTS = [GOOD1, GOOD2, GOOD3]

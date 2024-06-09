@@ -72,4 +72,4 @@ def profile(request):
 def store_view(request):
     if not request.method == 'GET':
         return redirect(data_app.HOME_PATH)
-    return render(request, 'store.html')
+    return render(request, 'store.html', {'products': data_app.PRODUCTS})
