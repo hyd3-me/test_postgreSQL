@@ -29,3 +29,8 @@ class UserTest(BaseUser):
         resp = self.client.get(reverse(data_app.HOME_PATH))
         self.assertTemplateUsed(resp, 'index.html')
     
+    def test_use_template_for_register_page(self):
+        resp = self.client.get(reverse(data_app.REG_PATH))
+        self.assertTemplateUsed(resp, 'register.html')
+
+    

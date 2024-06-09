@@ -66,3 +66,4 @@ $ psql
 - test_has_link_to_register_new_user
 - test_can_register_new_user
 - test_use_template_for_index_page
+- test_use_template_for_register_page
