@@ -71,3 +71,4 @@ $ psql
 - test_use_template_for_profile_page
 - test_has_link_to_store_page
 - test_use_template_for_store_page
+- test_can_buy_item1

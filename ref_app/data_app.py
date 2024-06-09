@@ -5,6 +5,7 @@ REG_PATH                = 'register'
 PROFILE_PATH            = 'profile'
 
 STORE_PATH              = 'store'
+POST_BUY_PATH           = 'post_buy'
 
 
 USERNAME1 = 'testuser1'
@@ -30,7 +31,7 @@ REQ_BUY1 = 100
 REQ_BUY2 = 200
 REQ_BUY5 = 500
 
-GOOD1 = {'id': 1, 'name': 'name1', 'price': 100}
-GOOD2 = {'id': 2, 'name': 'name2', 'price': 200}
-GOOD3 = {'id': 3, 'name': 'name3', 'price': 500}
+GOOD1 = {'id': 1, 'name': 'name1', 'price': REQ_BUY1}
+GOOD2 = {'id': 2, 'name': 'name2', 'price': REQ_BUY2}
+GOOD3 = {'id': 3, 'name': 'name3', 'price': REQ_BUY5}
 PRODUCTS = [GOOD1, GOOD2, GOOD3]

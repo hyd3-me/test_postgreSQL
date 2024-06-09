@@ -73,3 +73,13 @@ def store_view(request):
     if not request.method == 'GET':
         return redirect(data_app.HOME_PATH)
     return render(request, 'store.html', {'products': data_app.PRODUCTS})
+
+def post_buy_view(request):
+    if request.method != "POST":
+        return redirect(data_app.HOME_PATH)
+    _id = int(request.POST.get('id', ''))
+    if _id in [1, 2, 3]:
+        err, resp = utils.buy_item_by_id(request.user, _id)
+    else:
+        print('not this id')
+    return redirect(data_app.HOME_PATH)

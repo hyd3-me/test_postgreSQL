@@ -136,3 +136,18 @@ def get_ref_code(user_obj):
         return 1, 'not ref_code'
     else:
         return 0, ref_code
+
+@try_me
+def buy_item_by_id(_user, _id):
+    if _id == 1:
+        _price = 100
+    elif _id == 2:
+        _price = 200
+    else:
+        _price = 500
+    return buy_item(_user, _price)
+
+@try_me
+def get_balance_by_user(user_obj):
+    user_obj.profile.refresh_from_db()
+    return 0, user_obj.profile.balance

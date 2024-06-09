@@ -50,3 +50,12 @@ class UserTest(BaseUser):
         resp = self.client.get(reverse(data_app.STORE_PATH))
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, 'store.html')
+    
+    def test_can_buy_item1(self):
+        err, user = self.make_user_and_login()
+        s, resp1 = utils.get_money(user)
+        resp1 = self.client.post(reverse('post_buy'), {
+            'id': 1}, follow=True)
+        self.assertRedirects(resp1, reverse(data_app.HOME_PATH))
+        s, balance1 = utils.get_balance_by_user(user)
+        self.assertEqual(balance1, data_app.BONUS9999-data_app.REQ_BUY1)
