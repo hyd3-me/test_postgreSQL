@@ -38,4 +38,10 @@ class UserTest(BaseUser):
     
     def test_use_template_for_profile_page(self):
         resp = self.client.get(reverse(data_app.PROFILE_PATH))
+        self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, 'profile.html')
+    
+    def test_has_link_to_store_page(self):
+        resp = self.client.get(reverse(data_app.PROFILE_PATH))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, '<a href="/store/">store</a>', html=True)

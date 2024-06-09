@@ -68,3 +68,8 @@ def profile(request):
     err, ref_code = utils.get_ref_code(request.user)
     ref_link = create_ref_link(ref_code)
     return render(request, 'profile.html', {'ref_link': ref_link})
+
+def store_view(request):
+    if not request.method == 'GET':
+        return redirect(data_app.HOME_PATH)
+    return render(request, 'store.html')

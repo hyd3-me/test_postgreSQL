@@ -4,6 +4,8 @@ LOGOUT_PATH             = 'logout'
 REG_PATH                = 'register'
 PROFILE_PATH            = 'profile'
 
+STORE_PATH              = 'store'
+
 
 USERNAME1 = 'testuser1'
 PASSWORD1 = 'v3ry5strongPWD1'
