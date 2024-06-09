@@ -20,7 +20,6 @@ class UserTest(BaseUser):
     
     def test_can_register_new_user(self):
         resp = self.reg_me(data_app.USER1)
-        self.assertRedirects(resp, reverse(data_app.PROFILE_PATH))
         err, user = utils.get_user_by_id(1)
         self.assertEqual(user.username, data_app.USER1[0])
     
@@ -32,5 +31,8 @@ class UserTest(BaseUser):
     def test_use_template_for_register_page(self):
         resp = self.client.get(reverse(data_app.REG_PATH))
         self.assertTemplateUsed(resp, 'register.html')
-
+    
+    def test_redirect_after_registration_to_profile_page(self):
+        resp = self.reg_me(data_app.USER1)
+        self.assertRedirects(resp, reverse(data_app.PROFILE_PATH))
     
