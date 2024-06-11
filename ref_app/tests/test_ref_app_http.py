@@ -129,3 +129,8 @@ class UserTest(BaseUser):
         resp = self.client.get(reverse(data_app.PROFILE_PATH))
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, '<a href="/all_refs/">all refs</a>', html=True)
+    
+    def test_use_template_for_all_refs_page(self):
+        resp = self.client.get(reverse(data_app.ALL_REFS_PATH))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'all_refs.html')
