@@ -183,3 +183,8 @@ class UserTest(BaseUser):
         resp1 = self.client.get(reverse(data_app.REFERRAL_PATH))
         self.assertContains(resp1, f'{data_app.GOOD1.get("price") + data_app.GOOD2.get("price")}')
         self.assertContains(resp1, f'{data_app.GOOD3.get("price") + data_app.GOOD2.get("price")}')
+    
+    def test_has_link_to_own_refs_page(self):
+        resp = self.client.get(reverse(data_app.PROFILE_PATH))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, '<a href="/my_refs/">my refs</a>', html=True)
