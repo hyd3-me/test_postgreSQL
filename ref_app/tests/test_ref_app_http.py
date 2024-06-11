@@ -108,3 +108,19 @@ class UserTest(BaseUser):
         s, balance = utils.get_balance_by_user(user)
         self.assertContains(
             resp, f'<p>my balance: {balance:.2f}</p>', html=True)
+    
+    def test_referrer_can_get_bonus(self):
+        s, user1 = utils.create_user(data_app.USER1)
+        ref_code = utils.get_ref_code(user1)
+        ref_link = create_ref_link(ref_code)
+        user_tuple = data_app.USER2
+        resp1 = self.client.post(ref_link, {
+            'username': user_tuple[0],
+            'password': user_tuple[1],
+            'ref_code': ref_code}, follow=True)
+        resp = self.client.get(reverse(data_app.GIVE_MONEY_PATH), follow=True)
+        resp1 = self.client.post(reverse('post_buy'), {
+            'id': data_app.GOOD1.get('id')}, follow=True)
+        percent5 = 0.05 * data_app.REQ_BUY1
+        s, balance1 = utils.get_balance_by_user(user1)
+        self.assertEqual(balance1, percent5)
