@@ -10,6 +10,14 @@ used:
 - postgresql
 - тесты
 
+### clone repo
+```sh
+$ clone https://github.com/hyd3-me/test_postgreSQL.git source
+$pip install -r requirements.txt
+$cd source
+$python manage.py runserver
+```
+
 ### django
 - pip install django
 - django-admin startproject project_name .
