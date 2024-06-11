@@ -124,3 +124,8 @@ class UserTest(BaseUser):
         percent5 = 0.05 * data_app.REQ_BUY1
         s, balance1 = utils.get_balance_by_user(user1)
         self.assertEqual(balance1, percent5)
+    
+    def test_has_link_to_all_refs_page(self):
+        resp = self.client.get(reverse(data_app.PROFILE_PATH))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, '<a href="/all_refs/">all refs</a>', html=True)

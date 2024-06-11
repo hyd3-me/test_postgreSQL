@@ -159,3 +159,7 @@ def buy_item_by_id(_user, _id):
 def get_balance_by_user(user_obj):
     user_obj.profile.refresh_from_db()
     return 0, user_obj.profile.balance
+
+@try_me
+def get_all_referals():
+    return 0, Referral.objects.all()

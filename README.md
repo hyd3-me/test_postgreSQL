@@ -77,3 +77,4 @@ $ psql
 - test_can_reg_with_ref_code
 - test_give_money
 - test_referrer_can_get_bonus
+- test_has_link_to_all_refs_page

@@ -88,3 +88,9 @@ def post_buy_view(request):
 def give_money_view(request):
     s, resp1 = utils.get_money(request.user)
     return redirect(data_app.STORE_PATH)
+
+def all_refs_view(request):
+    err, refs = utils.get_all_referals()
+    if err:
+        return redirect(data_app.HOME_PATH)
+    return render(request, 'all_refs.html', {'all_refs': refs}) 
