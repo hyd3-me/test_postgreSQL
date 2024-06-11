@@ -74,3 +74,4 @@ $ psql
 - test_can_buy_item1
 - test_can_get_ref_code_link
 - test_use_registration_form
+- test_can_reg_with_ref_code

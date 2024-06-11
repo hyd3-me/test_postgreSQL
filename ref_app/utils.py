@@ -67,6 +67,10 @@ def get_first_user():
     return 0, User.objects.first()
 
 @try_me
+def get_last_user():
+    return 0, User.objects.last()
+
+@try_me
 def get_all_referral_from_db():
     return Referral.objects.all()
 

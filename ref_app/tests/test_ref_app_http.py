@@ -80,3 +80,18 @@ class UserTest(BaseUser):
         ref_link = create_ref_link(ref_code)
         resp = self.client.get(ref_link)
         self.assertIsInstance(resp.context['form'], forms.RegistrationForm)
+    
+    def test_can_reg_with_ref_code(self):
+        s, user1 = utils.create_user(data_app.USER1)
+        ref_code = utils.get_ref_code(user1)
+        ref_link = create_ref_link(ref_code)
+        user_tuple = data_app.USER2
+        resp1 = self.client.post(ref_link, {
+            'username': user_tuple[0],
+            'password': user_tuple[1],
+            'ref_code': ref_code}, follow=True)
+        self.assertRedirects(resp1, reverse(data_app.PROFILE_PATH))
+        err, user = utils.get_last_user()
+        self.assertEqual(user.username, user_tuple[0])
+        err, user_from_db = utils.get_user_by_id(user1.id)
+        self.assertTrue(user_from_db.profile.is_referrer)
