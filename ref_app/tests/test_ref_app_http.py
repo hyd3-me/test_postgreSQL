@@ -95,3 +95,16 @@ class UserTest(BaseUser):
         self.assertEqual(user.username, user_tuple[0])
         err, user_from_db = utils.get_user_by_id(user1.id)
         self.assertTrue(user_from_db.profile.is_referrer)
+    
+    def test_has_link_to_give_money_page(self):
+        resp = self.client.get(reverse(data_app.STORE_PATH))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, '<a href="/give_money/">give_money</a>', html=True)
+    
+    def test_give_money(self):
+        err, user = self.make_user_and_login()
+        resp = self.client.get(reverse(data_app.GIVE_MONEY_PATH), follow=True)
+        self.assertRedirects(resp, reverse(data_app.STORE_PATH))
+        s, balance = utils.get_balance_by_user(user)
+        self.assertContains(
+            resp, f'<p>my balance: {balance:.2f}</p>', html=True)

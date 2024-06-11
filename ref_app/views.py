@@ -72,7 +72,8 @@ def profile(request):
 def store_view(request):
     if not request.method == 'GET':
         return redirect(data_app.HOME_PATH)
-    return render(request, 'store.html', {'products': data_app.PRODUCTS})
+    err, balance = utils.get_balance_by_user(request.user)
+    return render(request, 'store.html', {'products': data_app.PRODUCTS, 'balance': balance})
 
 def post_buy_view(request):
     if request.method != "POST":
@@ -83,3 +84,7 @@ def post_buy_view(request):
     else:
         print('not this id')
     return redirect(data_app.HOME_PATH)
+
+def give_money_view(request):
+    s, resp1 = utils.get_money(request.user)
+    return redirect(data_app.STORE_PATH)

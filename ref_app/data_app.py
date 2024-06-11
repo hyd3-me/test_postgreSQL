@@ -6,6 +6,7 @@ PROFILE_PATH            = 'profile'
 
 STORE_PATH              = 'store'
 POST_BUY_PATH           = 'post_buy'
+GIVE_MONEY_PATH         = 'give_money'
 
 
 USERNAME1 = 'testuser1'
