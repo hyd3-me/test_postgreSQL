@@ -20,7 +20,8 @@ class UserTest(BaseUser):
     
     def test_can_register_new_user(self):
         resp = self.reg_me(data_app.USER1)
-        err, user = utils.get_user_by_id(1)
+        err, user = utils.get_first_user()
+        self.assertFalse(err)
         self.assertEqual(user.username, data_app.USER1[0])
     
     def test_use_template_for_index_page(self):

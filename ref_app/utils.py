@@ -63,6 +63,10 @@ def get_user_by_id(user_id):
         return 0, user
 
 @try_me
+def get_first_user():
+    return 0, User.objects.first()
+
+@try_me
 def get_all_referral_from_db():
     return Referral.objects.all()
 
