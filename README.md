@@ -83,3 +83,4 @@ $ psql
 - test_can_view_own_referrals
 - test_can_view_refs_purchases
 - test_has_link_to_own_refs_page
+- test_use_template_for_own_refs_page
