@@ -3,6 +3,11 @@ from django.urls import reverse
 from ref_app.tests.test_base_http import BaseUser
 from ref_app import utils, data_app
 
+
+def create_ref_link(ref_code):
+    domain = 'localhost'
+    return f'http://{domain}:8000{reverse(data_app.REG_PATH)}?ref={ref_code}'
+
 class UserTest(BaseUser):
 
     def test_redirect_unauth_user_to_login_from_index(self):
@@ -60,3 +65,11 @@ class UserTest(BaseUser):
         self.assertRedirects(resp1, reverse(data_app.HOME_PATH))
         s, balance1 = utils.get_balance_by_user(user)
         self.assertEqual(balance1, data_app.BONUS9999-data_app.REQ_BUY1)
+    
+    def test_can_get_ref_code_link(self):
+        s, user1 = utils.create_user(data_app.USER1)
+        err, ref_code = utils.get_ref_code(user1)
+        ref_link = create_ref_link(ref_code)
+        resp = self.client.get(ref_link)
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, ref_code)
