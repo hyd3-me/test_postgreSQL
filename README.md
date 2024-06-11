@@ -79,3 +79,4 @@ $ psql
 - test_referrer_can_get_bonus
 - test_has_link_to_all_refs_page
 - test_use_template_for_all_refs_page
+- test_can_view_all_referrals

@@ -134,3 +134,25 @@ class UserTest(BaseUser):
         resp = self.client.get(reverse(data_app.ALL_REFS_PATH))
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, 'all_refs.html')
+    
+    def test_can_view_all_referrals(self):
+        # + referrer
+        s, user1 = utils.create_user(data_app.USER1)
+        # user1 ref_code
+        ref_code = user1.profile.ref_code
+        # +2 referrals
+        s, user2 = utils.create_user((*data_app.USER2, ref_code))
+        s, user3 = utils.create_user((*data_app.USER3, ref_code))
+
+        s, user4 = utils.create_user((*data_app.USER4, ''))
+        ref_code = user4.profile.ref_code
+        s, user5 = utils.create_user((*data_app.USER5, ref_code))
+        s, user6 = utils.create_user((*data_app.USER6, ref_code))
+
+        self.login(data_app.USER1)
+        resp1 = self.client.get(reverse(data_app.ALL_REFS_PATH))
+        # check to all refs in page
+        self.assertContains(resp1, f'{data_app.USER2[0]}')
+        self.assertContains(resp1, f'{data_app.USER3[0]}')
+        self.assertContains(resp1, f'{data_app.USER5[0]}')
+        self.assertContains(resp1, f'{data_app.USER6[0]}')
