@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from ref_app.tests.test_base_http import BaseUser
-from ref_app import utils, data_app
+from ref_app import utils, data_app, forms
 
 
 def create_ref_link(ref_code):
@@ -73,3 +73,10 @@ class UserTest(BaseUser):
         resp = self.client.get(ref_link)
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, ref_code)
+    
+    def test_use_registration_form(self):
+        s, user1 = utils.create_user(data_app.USER1)
+        err, ref_code = utils.get_ref_code(user1)
+        ref_link = create_ref_link(ref_code)
+        resp = self.client.get(ref_link)
+        self.assertIsInstance(resp.context['form'], forms.RegistrationForm)

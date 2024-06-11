@@ -73,3 +73,4 @@ $ psql
 - test_use_template_for_store_page
 - test_can_buy_item1
 - test_can_get_ref_code_link
+- test_use_registration_form
