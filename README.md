@@ -80,3 +80,5 @@ $ psql
 - test_has_link_to_all_refs_page
 - test_use_template_for_all_refs_page
 - test_can_view_all_referrals
+- test_can_view_own_referrals
+- test_can_view_refs_purchases

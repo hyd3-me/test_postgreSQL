@@ -8,6 +8,7 @@ STORE_PATH              = 'store'
 POST_BUY_PATH           = 'post_buy'
 GIVE_MONEY_PATH         = 'give_money'
 ALL_REFS_PATH           = 'all_refs'
+REFERRAL_PATH           = 'my_refs'
 
 
 USERNAME1 = 'testuser1'

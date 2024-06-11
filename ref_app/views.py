@@ -93,4 +93,10 @@ def all_refs_view(request):
     err, refs = utils.get_all_referals()
     if err:
         return redirect(data_app.HOME_PATH)
-    return render(request, 'all_refs.html', {'all_refs': refs}) 
+    return render(request, 'all_refs.html', {'all_refs': refs})
+
+def my_refs_view(request):
+    err, refs = utils.get_referals_by_user(request.user)
+    if err:
+        return redirect(data_app.HOME_PATH)
+    return render(request, 'my_refs.html', {'my_refs': refs})

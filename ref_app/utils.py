@@ -163,3 +163,7 @@ def get_balance_by_user(user_obj):
 @try_me
 def get_all_referals():
     return 0, Referral.objects.all()
+
+@try_me
+def get_referals_by_user(user_obj):
+    return 0, user_obj.referrer.all()

@@ -156,3 +156,30 @@ class UserTest(BaseUser):
         self.assertContains(resp1, f'{data_app.USER3[0]}')
         self.assertContains(resp1, f'{data_app.USER5[0]}')
         self.assertContains(resp1, f'{data_app.USER6[0]}')
+    
+    def test_can_view_own_referrals(self):
+        s, user1 = utils.create_user(data_app.USER1)
+        ref_code = user1.profile.ref_code
+        s, user2 = utils.create_user((*data_app.USER2, ref_code))
+        s, user3 = utils.create_user((*data_app.USER3, ref_code))
+        self.login(data_app.USER1)
+        resp1 = self.client.get(reverse(data_app.REFERRAL_PATH))
+        self.assertContains(resp1, f'{data_app.USER2[0]}')
+        self.assertContains(resp1, f'{data_app.USER3[0]}')
+    
+    def test_can_view_refs_purchases(self):
+        s, user1 = utils.create_user(data_app.USER1)
+        ref_code = user1.profile.ref_code
+        s, user2 = utils.create_user((*data_app.USER2, ref_code))
+        s, resp1 = utils.get_money(user2)
+        s, resp1 = utils.buy_item_by_id(user2, data_app.GOOD1.get('id'))
+        s, resp1 = utils.buy_item_by_id(user2, data_app.GOOD2.get('id'))
+
+        s, user3 = utils.create_user((*data_app.USER3, ref_code))
+        s, resp1 = utils.get_money(user3)
+        s, resp1 = utils.buy_item_by_id(user3, data_app.GOOD3.get('id'))
+        s, resp1 = utils.buy_item_by_id(user3, data_app.GOOD2.get('id'))
+        self.login(data_app.USER1)
+        resp1 = self.client.get(reverse(data_app.REFERRAL_PATH))
+        self.assertContains(resp1, f'{data_app.GOOD1.get("price") + data_app.GOOD2.get("price")}')
+        self.assertContains(resp1, f'{data_app.GOOD3.get("price") + data_app.GOOD2.get("price")}')

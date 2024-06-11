@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block userbar %}
+                        {% if user.is_authenticated %}
+                        <button class='userbar_btn btn btn_head' id='id_logout'><a href='{% url "logout" %}'>out</a></button>
+                        {% else %}
+                        <button class='userbar_btn btn btn_head' id='id_login'><a href='{% url "login" %}'>login</a></button>
+                        {% endif %}
+{% endblock %}
+{% block content %}
+<div>
+    <h2>my referrals:</h2>
+    <ul>
+        {% for ref in my_refs %}
+            <li>Реферрал от {{ ref.referrer.username }} к {{ ref.referral.username }}</li>
+            <p>всего покупок: {{ ref.num_purchases }}</p>
+            <p>общая сумма: {{ ref.total_amount }}</p>
+        {% empty %}
+            <li>Нет рефералов</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
