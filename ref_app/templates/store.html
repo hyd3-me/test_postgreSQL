@@ -14,7 +14,7 @@
     <ul>
         {% for product in products %}
             <li>{{ product.name }} - {{ product.price }}</li>
-            <form method="post" action="post_buy" style="display: inline;">
+            <form method="post" action="/post_buy" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" name="product_id" value="{{ product.id }}">Купить</button>
             </form>

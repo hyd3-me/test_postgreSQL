@@ -78,11 +78,15 @@ def store_view(request):
 def post_buy_view(request):
     if request.method != "POST":
         return redirect(data_app.HOME_PATH)
-    _id = int(request.POST.get('id', ''))
-    if _id in [1, 2, 3]:
-        err, resp = utils.buy_item_by_id(request.user, _id)
+    str_id = request.POST.get('product_id', '')
+    if str_id:
+        _id = int(str_id)
+        if _id in [1, 2, 3]:
+            err, resp = utils.buy_item_by_id(request.user, _id)
+        else:
+            print('not this id')
     else:
-        print('not this id')
+        print('product_id is empty')
     return redirect(data_app.HOME_PATH)
 
 def give_money_view(request):

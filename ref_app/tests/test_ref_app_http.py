@@ -61,7 +61,7 @@ class UserTest(BaseUser):
         err, user = self.make_user_and_login()
         s, resp1 = utils.get_money(user)
         resp1 = self.client.post(reverse('post_buy'), {
-            'id': 1}, follow=True)
+            'product_id': 1}, follow=True)
         self.assertRedirects(resp1, reverse(data_app.HOME_PATH))
         s, balance1 = utils.get_balance_by_user(user)
         self.assertEqual(balance1, data_app.BONUS9999-data_app.REQ_BUY1)
@@ -120,7 +120,7 @@ class UserTest(BaseUser):
             'ref_code': ref_code}, follow=True)
         resp = self.client.get(reverse(data_app.GIVE_MONEY_PATH), follow=True)
         resp1 = self.client.post(reverse('post_buy'), {
-            'id': data_app.GOOD1.get('id')}, follow=True)
+            'product_id': data_app.GOOD1.get('id')}, follow=True)
         percent5 = 0.05 * data_app.REQ_BUY1
         s, balance1 = utils.get_balance_by_user(user1)
         self.assertEqual(balance1, percent5)
